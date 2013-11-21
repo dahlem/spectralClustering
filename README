@@ -1,0 +1,56 @@
+This project is an implementation of spectral clustering using the
+unnormalised (and sparse) graph Laplacian (in upper triangular form)
+solving the generalised eigenvalue problem using arpack++. For a good
+tutorial on spectral clustering see
+
+"A tutorial on spectral clustering", by Ulrike Luxburg
+Statistics and Computing In Statistics and Computing, Vol. 17, 
+No. 4. (1 December 2007), pp. 395-416, doi:10.1007/s11222-007-9033-z
+
+
+CONFIGURATION
+
+The Makefile contains the hard-coded references to the required
+software packages, which include boost, arpack++, and SuiteSparse. You
+would need to install those packages and point to the appropriate
+libraries and include folders.
+
+Type "make" to compile the project. This will create an executable
+"spectralClustering".
+
+
+EXECUTION
+
+The executable accepts a number of command-line parameters, which have
+to be passed in:
+
+./spectralClustering <resultsDir> <nonZeroW> <nonZeroD> <D> <W> <numEigenvalues>
+
+ - resultsDir: the directory to write the eigen values and vectors to
+
+ - nonZeroW: The W matrix contains the pair-wise distances. This
+             parameter gives the number of non-zero entries
+
+ - nonZeroD: The D matrix is a diagonal matrix, where the entries are
+             computed as d_i = \sum_j w_ij. All diagonals have to be
+ 	     non-zero. This parameter gives the number of non-zero
+ 	     elements, which is equivalent to the dimension of the
+ 	     problem.
+ 
+ - D: Is the diagonal matrix in a CSV file of the form:
+
+      i,d_i
+
+      where i is the row index (starting at 1) and d_i is the diagonal
+      value
+
+ - W: is the weighted graph of the pair-wise distances in a CSV file
+      of the form:
+
+      i,j,w_ij
+
+      where i and j are the rows and columns respectively and the w_ij
+      is the distance value between object i and j
+
+ - numEigenvalues: This parameter specifies how many eigenvalues with
+                   the smallest magnitude should be computed.
